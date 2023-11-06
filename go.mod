@@ -1,4 +1,4 @@
-module github.com/sujathaiyer124/ems-gcp12/ems-gcp
+module github.com/sujathaiyer124/ems-gcp12
 
 go 1.21.1
 

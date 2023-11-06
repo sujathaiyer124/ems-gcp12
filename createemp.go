@@ -25,8 +25,9 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	defer Client.Close()
 	SetFirestoreClient(Client)
+	defer Client.Close()
+
 }
 
 var firestoreClient *firestore.Client
