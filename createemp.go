@@ -7,8 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	createemployee "github.com/sujathaiyer124/createemployee"
-	"github.com/sujathaiyer124/createemployee/models"
+	"github.com/sujathaiyer124/ems-gcp12/models"
 	"google.golang.org/api/option"
 
 	"cloud.google.com/go/firestore"
@@ -27,7 +26,7 @@ func init() {
 		log.Println(err)
 	}
 	defer Client.Close()
-	createemployee.SetFirestoreClient(Client)
+	SetFirestoreClient(Client)
 }
 
 var firestoreClient *firestore.Client
