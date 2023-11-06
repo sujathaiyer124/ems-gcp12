@@ -8,7 +8,6 @@ import (
 	"net/http"
 
 	"github.com/sujathaiyer124/ems-gcp12/models"
-	"google.golang.org/api/option"
 
 	"cloud.google.com/go/firestore"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
@@ -16,26 +15,24 @@ import (
 	//"google.golang.org/genproto/googleapis/cloud/functions/v2"
 )
 
+var firestoreClient *firestore.Client
+
 func init() {
 	functions.HTTP("CreateEmployee", CreateEmployees)
 	ctx := context.Background()
 	projectID := "excellent-math-403109"
-	credentialsFile := "excellent-math-403109-3a5f8960ab6f.json"
-	Client, err := firestore.NewClient(ctx, projectID, option.WithCredentialsFile(credentialsFile))
+	//credentialsFile := "excellent-math-403109-3a5f8960ab6f.json"
+	Client, err := firestore.NewClient(ctx, projectID)
 	if err != nil {
 		log.Println(err)
 	}
-	SetFirestoreClient(Client)
+	//SetFirestoreClient(Client)
+	firestoreClient = Client
 	defer Client.Close()
 
 }
 
-var firestoreClient *firestore.Client
 var err error
-
-func SetFirestoreClient(client *firestore.Client) {
-	firestoreClient = client
-}
 
 func CreateEmployees(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
