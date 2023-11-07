@@ -42,7 +42,8 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		doc, err := iter.Next()
 		if err == iterator.Done {
 			break
-		} else if err != nil {
+		}
+		if err != nil {
 			log.Printf("Error iterating through documents: %v", err)
 			continue
 		}
