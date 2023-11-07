@@ -44,8 +44,7 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		if err != nil {
-			return err
-			//log.Printf("Error iterating through documents: %v", err)
+			log.Printf("Error iterating through documents: %v", err.Error())
 		}
 		var employee models.Employee
 		if err != nil {
