@@ -33,6 +33,7 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		log.Println("Firestore client is not initialized")
 		return
 	}
+	defer firestoreClient.Close()
 	iter := firestoreClient.Collection("employees").Documents(ctx)
 	defer iter.Stop()
 
@@ -70,5 +71,5 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonData)
-	defer firestoreClient.Close()
+
 }
