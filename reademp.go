@@ -44,8 +44,8 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 			break
 		}
 		if err != nil {
-			log.Printf("Error iterating through documents: %v", err)
-			continue
+			return err
+			//log.Printf("Error iterating through documents: %v", err)
 		}
 		var employee models.Employee
 		if err != nil {
@@ -71,5 +71,7 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonData)
+
 	firestoreClient.Close()
+
 }
