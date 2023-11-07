@@ -31,6 +31,10 @@ func init() {
 	// defer Client.Close()
 
 }
+func generateShortID() string {
+	id := uuid.New()
+	return id.String()[:6]
+}
 
 var err error
 
@@ -68,7 +72,7 @@ func CreateEmployees(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, "Role must be admin or user")
 			return
 		}
-		id := uuid.New().String()
+		id := generateShortID()
 		_, _, err := firestoreClient.Collection("employees").Add(ctx, map[string]interface{}{
 			"id":        id,
 			"firstname": emp.FirstName,
