@@ -33,7 +33,7 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		log.Println("Firestore client is not initialized")
 		return
 	}
-	defer firestoreClient.Close()
+	//firestoreClient.Close()
 	iter := firestoreClient.Collection("employees").Documents(ctx)
 	defer iter.Stop()
 
@@ -42,10 +42,9 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		doc, err := iter.Next()
 		if err == iterator.Done {
 			break
-		}
-		if err != nil {
+		} else if err != nil {
 			log.Printf("Error iterating through documents: %v", err)
-
+			continue
 		}
 		var employee models.Employee
 		if err != nil {
@@ -71,5 +70,5 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonData)
-
+	firestoreClient.Close()
 }
