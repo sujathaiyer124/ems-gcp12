@@ -28,7 +28,7 @@ func init() {
 	}
 	//SetFirestoreClient(Client)
 	firestoreClient = Client
-	defer Client.Close()
+	// defer Client.Close()
 
 }
 
@@ -95,5 +95,5 @@ func CreateEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonData)
-
+	defer firestoreClient.Close()
 }
