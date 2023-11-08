@@ -27,9 +27,7 @@ func init() {
 	}
 	firestoreClient = Client
 }
-func SetFirestoreClient(client *firestore.Client) {
-	firestoreClient = client
-}
+
 func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("Update the employee data")
 	w.Header().Set("Content-Type", "application/json")
