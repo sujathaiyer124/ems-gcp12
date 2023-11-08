@@ -71,6 +71,6 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonData)
 
-	defer firestoreClient.Close()
+	//defer firestoreClient.Close()
 
 }
