@@ -14,17 +14,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var firestoreClient *firestore.Client
+
 
 func init() {
 	functions.HTTP("DeleteEmployee", DeleteEmployees)
-	ctx := context.Background()
-	projectID := "excellent-math-403109"
-	Client, err := firestore.NewClient(ctx, projectID)
-	if err != nil {
-		log.Println(err)
-	}
-	firestoreClient = Client
+
 }
 
 func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
@@ -32,8 +26,15 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Delete the employee data")
 	w.Header().Set("Content-Type", "application/json")
 	//ctx := r.Context()
-	if firestoreClient == nil {
-		log.Println("Firestore client is not initialized")
+	ctx := context.Background()
+	projectID := "excellent-math-403109"
+	Client, err := firestore.NewClient(ctx, projectID)
+	if err != nil {
+		log.Println(err)
+	}
+	if Client == nil {
+		log.Println(Client)
+		log.Println("Firestore client is not initialized", err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to update employeerr 5345."))
 		return
@@ -42,7 +43,7 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	empID := params["id"]
 	log.Println(empID)
-	_, err := firestoreClient.Collection("employees").Doc(empID).Delete(ctx)
+	_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
 	if err != nil {
 		log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -51,7 +52,7 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	}
 	log.Println("Employee deleted successfully")
 
-	docs, err := firestoreClient.Collection("employees").Documents(ctx).GetAll()
+	docs, err := Client.Collection("employees").Documents(ctx).GetAll()
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to retrieve remaining employees."))
