@@ -31,7 +31,7 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Delete the employee data")
 	w.Header().Set("Content-Type", "application/json")
-	ctx := r.Context()
+	//ctx := r.Context()
 	if firestoreClient == nil {
 		log.Println("Firestore client is not initialized")
 		w.WriteHeader(http.StatusInternalServerError)
@@ -44,7 +44,7 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	log.Println(empID)
 	_, err := firestoreClient.Collection("employees").Doc(empID).Delete(ctx)
 	if err != nil {
-		log.Printf("Error deleting employee with ID %s: %s", empID, err1.Error())
+		log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to delete employee."))
 		return
