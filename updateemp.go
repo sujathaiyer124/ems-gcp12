@@ -1,7 +1,6 @@
 package updateemployee
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -19,21 +18,18 @@ var firestoreClient *firestore.Client
 
 func init() {
 	functions.HTTP("UpdateEmployee", UpdateEmployees)
-	ctx := context.Background()
+}
+
+func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 	projectID := "excellent-math-403109"
+	ctx := r.Context()
 	Client, err := firestore.NewClient(ctx, projectID)
 	if err != nil {
 		log.Println(err)
 	}
 	firestoreClient = Client
-}
-func SetFirestoreClient(client *firestore.Client) {
-	firestoreClient = client
-}
-func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 	//fmt.Println("Update the employee data")
 	w.Header().Set("Content-Type", "application/json")
-	ctx := r.Context()
 
 	if firestoreClient == nil {
 		log.Println("Firestore client is not initialized")
@@ -45,7 +41,7 @@ func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	empID := params["id"]
 	var updatedEmployees []models.Employee
-	err := json.NewDecoder(r.Body).Decode(&updatedEmployees)
+	err = json.NewDecoder(r.Body).Decode(&updatedEmployees)
 	if err != nil {
 		fmt.Println("error is ", err.Error())
 		w.WriteHeader(http.StatusBadRequest)
@@ -96,7 +92,7 @@ func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 		})
 
 		if updateErr != nil {
-
+			log.Println(err.Error())
 			w.WriteHeader(http.StatusInternalServerError)
 			w.Write([]byte("Failed to update employee data"))
 			return
