@@ -41,11 +41,11 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 
 	params := mux.Vars(r)
 	empID := params["id"]
-
-	_, err1 := firestoreClient.Collection("employees").Doc(empID).Delete(ctx)
-	if err1 != nil {
-		w.WriteHeader(http.StatusInternalServerError)
+	log.Println(empID)
+	_, err := firestoreClient.Collection("employees").Doc(empID).Delete(ctx)
+	if err != nil {
 		log.Printf("Error deleting employee with ID %s: %s", empID, err1.Error())
+		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to delete employee."))
 		return
 	}
