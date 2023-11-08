@@ -2,11 +2,12 @@ package deleteemployee
 
 import (
 	"context"
-	"ems-gcp/models"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/sujathaiyer124/ems-gcp12/models"
 
 	"cloud.google.com/go/firestore"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
