@@ -17,7 +17,7 @@ import (
 var firestoreClient *firestore.Client
 
 func init() {
-	functions.HTTP("UpdateEmployee", UpdateEmployees)
+	functions.HTTP("DeleteEmployee", DeleteEmployees)
 	ctx := context.Background()
 	projectID := "excellent-math-403109"
 	Client, err := firestore.NewClient(ctx, projectID)
@@ -27,7 +27,7 @@ func init() {
 	firestoreClient = Client
 }
 
-func DeleteEmployee(w http.ResponseWriter, r *http.Request) {
+func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println("Delete the employee data")
 	w.Header().Set("Content-Type", "application/json")
