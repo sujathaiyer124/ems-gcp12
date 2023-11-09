@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/sujathaiyer124/ems-gcp12/models"
 
@@ -43,8 +44,12 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	//params := mux.Vars(r)
 	//log.Println("params is:", params)
 
-	empID := r.URL.Path[len("/DeleteEmployee/"):]
+	//empID := r.URL.Path[len("/DeleteEmployee/"):]
 	//empID := params["id"]
+
+	urlParts := strings.Split(r.URL.String(), "/")
+	empID := urlParts[len(urlParts)-1]
+
 	log.Println("empID is:", empID)
 	log.Println("Url is", r.URL)
 	//_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
