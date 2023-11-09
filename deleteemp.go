@@ -14,8 +14,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-
-
 func init() {
 	functions.HTTP("DeleteEmployee", DeleteEmployees)
 
@@ -33,7 +31,7 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 		log.Println(err)
 	}
 	//documentId:kD0DLp9An4iwzEFjlGcz
-	
+
 	if Client == nil {
 		log.Println(Client)
 		log.Println("Firestore client is not initialized", err.Error())
@@ -41,21 +39,23 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Failed to update employeerr 5345."))
 		return
 	}
-
+	log.Println("request is:", r)
 	params := mux.Vars(r)
+	log.Println("params is:", params)
+
 	empID := params["id"]
-	log.Println(empID)
+	log.Println("empID is:", empID)
 	//_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
-	docRef := client.Collection("employees").Doc("kD0DLp9An4iwzEFjlGcz")
-    _, err = docRef.Delete(ctx)
-    if err != nil {
-        // Handle error
+	docRef := Client.Collection("employees").Doc(empID)
+	_, err = docRef.Delete(ctx)
+	if err != nil {
+		// Handle error
 		log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to delete employee."))
 		return
 	}
-    
+
 	// if err != nil {
 	// 	log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
 	// 	w.WriteHeader(http.StatusInternalServerError)
