@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 	"github.com/sujathaiyer124/ems-gcp12/models"
