@@ -32,6 +32,8 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
+	//documentId:kD0DLp9An4iwzEFjlGcz
+	
 	if Client == nil {
 		log.Println(Client)
 		log.Println("Firestore client is not initialized", err.Error())
@@ -43,13 +45,23 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	empID := params["id"]
 	log.Println(empID)
-	_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
-	if err != nil {
+	//_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
+	docRef := client.Collection("employees").Doc("kD0DLp9An4iwzEFjlGcz")
+    _, err = docRef.Delete(ctx)
+    if err != nil {
+        // Handle error
 		log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte("Failed to delete employee."))
 		return
 	}
+    
+	// if err != nil {
+	// 	log.Printf("Error deleting employee with ID %s: %s", empID, err.Error())
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	w.Write([]byte("Failed to delete employee."))
+	// 	return
+	// }
 	log.Println("Employee deleted successfully")
 
 	docs, err := Client.Collection("employees").Documents(ctx).GetAll()
