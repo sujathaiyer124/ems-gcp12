@@ -10,7 +10,7 @@ import (
 	"github.com/sujathaiyer124/ems-gcp12/models"
 
 	"cloud.google.com/go/firestore"
-	"github.com/gorilla/mux"
+	//"github.com/gorilla/mux"
 	"google.golang.org/api/iterator"
 )
 
@@ -38,8 +38,14 @@ func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	params := mux.Vars(r)
-	empID := params["id"]
+	//params := mux.Vars(r)
+	//empID := params["id"]
+	urlParts := strings.Split(r.URL.String(), "/")
+	empID := urlParts[len(urlParts)-1]
+
+	log.Println("empID is:", empID)
+	log.Println("Url is", r.URL)
+
 	var updatedEmployees []models.Employee
 	err = json.NewDecoder(r.Body).Decode(&updatedEmployees)
 	if err != nil {
