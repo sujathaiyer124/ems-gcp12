@@ -11,7 +11,7 @@ import (
 
 	"cloud.google.com/go/firestore"
 	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
-	"github.com/gorilla/mux"
+	//"github.com/gorilla/mux"
 )
 
 func init() {
@@ -40,11 +40,13 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Println("request is:", r)
-	params := mux.Vars(r)
-	log.Println("params is:", params)
+	//params := mux.Vars(r)
+	//log.Println("params is:", params)
 
-	empID := params["id"]
+	empID := r.URL.Path[len("/DeleteEmployee/"):]
+	//empID := params["id"]
 	log.Println("empID is:", empID)
+	log.Println("Url is", r.URL)
 	//_, err = Client.Collection("employees").Doc(empID).Delete(ctx)
 	docRef := Client.Collection("employees").Doc(empID)
 	_, err = docRef.Delete(ctx)
