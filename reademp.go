@@ -15,10 +15,10 @@ import (
 )
 
 func init() {
-	functions.HTTP("Listemployee", ListEmployees)
+	functions.HTTP("Reademployee", ReadEmployees)
 }
 
-func ListEmployees(w http.ResponseWriter, r *http.Request) {
+func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 	ctx := context.Background()
 	projectID := "excellent-math-403109"
 	firestoreClient, err := firestore.NewClient(ctx, projectID)
