@@ -83,6 +83,7 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		employee.Role = doc.Data()["role"].(string)
 		employee.Salary = doc.Data()["salary"].(float64)
 		emp = append(emp, employee)
+		found=true 
 	}
 	jsonData, err := json.Marshal(emp)
 	// if !found {
