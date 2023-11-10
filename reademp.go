@@ -85,10 +85,10 @@ func ReadEmployees(w http.ResponseWriter, r *http.Request) {
 		emp = append(emp, employee)
 	}
 	jsonData, err := json.Marshal(emp)
-	if !found {
-		w.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(w).Encode("Not found")
-	}
+	// if !found {
+	// 	w.WriteHeader(http.StatusNotFound)
+	// 	json.NewEncoder(w).Encode("Not found")
+	// }
 	if err != nil {
 		log.Fatalf("Error encoding JSON: %s", err.Error())
 	}
