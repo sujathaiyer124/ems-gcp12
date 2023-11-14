@@ -4,7 +4,7 @@ import (
 	"embed"
 	"net/http"
 
-	"github.com/gorilla/mux"
+	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 )
 
 var staticFiles embed.FS
@@ -22,7 +22,5 @@ func SwaggerFunction(w http.ResponseWriter, r *http.Request) {
 }
 
 func init() {
-	r := mux.NewRouter()
-	r.HandleFunc("/Swagger", SwaggerFunction)
-	http.Handle("/", r)
+	functions.HTTP("Swagger", SwaggerFunction)
 }
