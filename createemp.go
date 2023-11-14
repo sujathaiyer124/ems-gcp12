@@ -26,9 +26,7 @@ func init() {
 	if err != nil {
 		log.Println(err)
 	}
-	//SetFirestoreClient(Client)
 	firestoreClient = Client
-	// defer Client.Close()
 
 }
 func generateShortID() string {
@@ -39,6 +37,10 @@ func generateShortID() string {
 var err error
 
 func CreateEmployees(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "3600")
 	w.Header().Set("Content-Type", "application/json")
 	var employee []models.Employee
 	ctx := r.Context()

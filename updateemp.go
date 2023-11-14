@@ -22,6 +22,10 @@ func init() {
 }
 
 func UpdateEmployees(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "PUT")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "3600")
 	projectID := "excellent-math-403109"
 	ctx := r.Context()
 	Client, err := firestore.NewClient(ctx, projectID)

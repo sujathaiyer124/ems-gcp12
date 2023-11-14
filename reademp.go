@@ -18,6 +18,10 @@ func init() {
 }
 
 func ReadEmployees(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "3600")
 	ctx := context.Background()
 	projectID := "excellent-math-403109"
 	firestoreClient, err := firestore.NewClient(ctx, projectID)

@@ -21,7 +21,10 @@ func init() {
 }
 
 func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Max-Age", "3600")
 	fmt.Println("Delete the employee data")
 	w.Header().Set("Content-Type", "application/json")
 	//ctx := r.Context()
@@ -31,7 +34,6 @@ func DeleteEmployees(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Println(err)
 	}
-	//documentId:kD0DLp9An4iwzEFjlGcz
 
 	if Client == nil {
 		log.Println(Client)
