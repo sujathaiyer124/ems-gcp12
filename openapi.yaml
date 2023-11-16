@@ -6,9 +6,6 @@ info:
     All the operations are performed by Admin.
   contact:
     email: sujatha@gmail.com
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
   - url: https://asia-south1-excellent-math-403109.cloudfunctions.net
@@ -46,7 +43,7 @@ paths:
       tags:
         - Admin
       summary: Get a list of all employees
-      description: This endpoint uses GET request to retrive all employees
+      description: This endpoint uses GET request to retrive all employees data. You can search the employee data using firstname,lastname,email and role. 
       responses:
         '200':
           description: OK
@@ -65,42 +62,44 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                firstname:
-                  type: string
-                  format:  max=10,min=3
-                  example: Sujatha
-                lastname:
-                  type: string
-                  example: Iyer
-                email:
-                  type: string
-                  format: email
-                  example: JohnSmith@swaggertheband.com
-                password:
-                  type: string
-                  pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
-                  example: pafhiwe2137!
-                phoneno:
-                  type: string
-                  format: default 10 numbers
-                  example: "1234567890"
-                role:
-                  type: string
-                  example: admin
-                salary:
-                  type: number
-                  format: float
-                  example: 500000.00
-              required:
-                - firstname
-                - lastname
-                - email
-                - password
-                - phoneno
-                - role
-                - salary
+              type: array
+              items:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                    format:  max=10,min=3
+                    example: Sujatha
+                  lastname:
+                    type: string
+                    example: Iyer
+                  email:
+                    type: string
+                    format: email
+                    example: JohnSmith@swaggertheband.com
+                  password:
+                    type: string
+                    pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
+                    example: pafhiwe2137!
+                  phoneno:
+                    type: string
+                    format: default 10 numbers
+                    example: "1234567890"
+                  role:
+                    type: string
+                    example: admin
+                  salary:
+                    type: number
+                    format: float
+                    example: 500000.00
+                required:
+                  - firstname
+                  - lastname
+                  - email
+                  - password
+                  - phoneno
+                  - role
+                  - salary
         required: true
       responses:
         '200':
@@ -123,42 +122,44 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                firstname:
-                  type: string
-                  format:  max=10,min=3
-                  example: Sujatha
-                lastname:
-                  type: string
-                  example: Iyer
-                email:
-                  type: string
-                  format: email
-                  example: JohnSmith@swaggertheband.com
-                password:
-                  type: string
-                  pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
-                  example: pafhiwe2137!
-                phoneno:
-                  type: string
-                  format: default 10 numbers
-                  example: "1234567890"
-                role:
-                  type: string
-                  example: admin
-                salary:
-                  type: number
-                  format: float
-                  example: 500000.00
-              required:
-                - firstname
-                - lastname
-                - email
-                - password
-                - phoneno
-                - role
-                - salary
+              type: array
+              items:
+                type: object
+                properties:
+                  firstname:
+                    type: string
+                    format:  max=10,min=3
+                    example: Sujatha
+                  lastname:
+                    type: string
+                    example: Iyer
+                  email:
+                    type: string
+                    format: email
+                    example: JohnSmith@swaggertheband.com
+                  password:
+                    type: string
+                    pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
+                    example: pafhiwe2137!
+                  phoneno:
+                    type: string
+                    format: default 10 numbers
+                    example: "1234567890"
+                  role:
+                    type: string
+                    example: admin
+                  salary:
+                    type: number
+                    format: float
+                    example: 500000.00
+                required:
+                  - firstname
+                  - lastname
+                  - email
+                  - password
+                  - phoneno
+                  - role
+                  - salary
       responses:
         '400': 
           description: ID not found
@@ -184,35 +185,37 @@ paths:
 components:
   schemas:
     Employee:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "fhty89"
-        firstname:
-          type: string
-          format:  max=10,min=3
-          example: Sujatha
-        lastname:
-          type: string
-          example: Iyer
-        email:
-          type: string
-          format: email
-          example: JohnSmith@swaggertheband.com
-        password:
-          type: string
-          pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
-          example: pafhiwe2137!
-        phoneno:
-          type: string
-          format: default 10 numbers
-          example: "1234567890"
-        role:
-          type: string
-          example: admin
-        salary:
-          type: number
-          format: float
-          example: 500000.00
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            example: "fhty89"
+          firstname:
+            type: string
+            format:  max=10,min=3
+            example: Sujatha
+          lastname:
+            type: string
+            example: Iyer
+          email:
+            type: string
+            format: email
+            example: JohnSmith@swaggertheband.com
+          password:
+            type: string
+            pattern: "Password should more than 8 letters.It must contains atleast one uppercase,one lowercase,one special character,one number."
+            example: pafhiwe2137!
+          phoneno:
+            type: string
+            format: default 10 numbers
+            example: "1234567890"
+          role:
+            type: string
+            example: admin
+          salary:
+            type: number
+            format: float
+            example: 500000.00
         
